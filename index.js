@@ -45,13 +45,40 @@ ${response.data.punchline}`
     await respond({ text: "Failed to fetch a joke." });
   }
 });
-app.command("/oneglass-mate-help",async({ack,respond})=>{
+
+app.command("/oneglass-mate-roast", async ({ ack, respond, command 
+}) => {
+  await ack();
+
+  const rosts = [
+    "is the kind of person who pushes on a door that clearly says 'PULL'.",
+    "takes 20 minutes to decide what to watch on Netflix and then falls asleep.",
+    "probably explains the plot of a movie while watching it for the first time.",
+    "forgets why they walked into a room 95% of the time.",
+    "definitely leaves their shopping cart in the middle of the parking lot aisle."
+  ];
+
+  const randomRoast = rosts[Math.floor(Math.random() * rosts.length)];
+
+  try{
+    await respond({
+      respond_type: "in_channel",
+      text: `🔥 Roast: ${randomRoast}`
+    });
+  }catch(err){
+    await respond({ text: "Failed to fetch a roast." });
+  }
+});
+ app.command("/oneglass-mate-help",async({ack,respond})=>{
   await ack();
   await respond({
     text: "Available commands:\n" +
           "/oneglass-mate-ping - Check bot latency\n" +
           "/oneglass-mate-catfact - Get a random cat fact\n" +
           "/oneglass-mate-joke - Get a random joke\n" +
-          "/oneglass-mate-help - Show this help message"
+          "/oneglass-mate-help - Show this help message\n" +
+          "/oneglass-mate-roast - Get a random roast" 
   });
 });
+
+
